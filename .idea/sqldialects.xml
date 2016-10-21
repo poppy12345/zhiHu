@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="mock:///QuestionDao.xml" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/cn/nju/dao/QuestionDao.xml" dialect="DB2" />
+  </component>
+</project>
