@@ -1,8 +1,8 @@
 package cn.nju.controller;
 
 import cn.nju.dao.QuestionDao;
-import cn.nju.model.HostHolder;
-import cn.nju.model.Question;
+import cn.nju.model.*;
+import cn.nju.service.CommentService;
 import cn.nju.service.QuestionService;
 import cn.nju.service.UserService;
 import cn.nju.util.DevelopmentUtil;
@@ -14,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by 黄锐鸿 on 2016/10/17.
@@ -28,6 +30,9 @@ public class QuestionController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CommentService commentService;
 
     @Autowired
     HostHolder hostHolder;
@@ -62,7 +67,17 @@ public class QuestionController {
     @RequestMapping(value = "/question/{qid}",method = {RequestMethod.GET})
     public String questionDetail(Model model, @PathVariable(value = "qid")int qid){
         Question question=questionService.getQuestionDetail(qid);
+        List<Comment> commentList=commentService.getCommentByEntity(qid, EntityType.Entity_Question);
+        List<ViewObject> comments=new ArrayList<>();
+        for(Comment comment:commentList){
+            ViewObject vo=new ViewObject();
+            vo.set("comment",comment);
+            vo.set("user",userService.getUser(comment.getUserId()));
+            comments.add(vo);
+        }
+        model.addAttribute("comments",comments);
         model.addAttribute("question",question);
+
         model.addAttribute("user",userService.getUser(question.getUserId()));
         return "detail";
     }

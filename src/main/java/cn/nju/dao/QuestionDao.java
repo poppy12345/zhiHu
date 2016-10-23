@@ -1,10 +1,8 @@
 package cn.nju.dao;
 
 import cn.nju.model.Question;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+
 import java.util.List;
 
 /**
@@ -22,7 +20,10 @@ public interface QuestionDao {
    List<Question> selectLatestQuestions(@Param("userId") int userId, @Param("offset") int offset,
                                         @Param("limit") int limit);
 
-    @Select({"select ",INSERT_FIELDS," from ",TABLE_NAME," where id=#{id}"})
+    @Select({"select ",SELECT_FIELDS," from ",TABLE_NAME," where id=#{id}"})
     Question selectQuestionById(int id);
+
+    @Update({"update ",TABLE_NAME," set comment_count=#{commentCount} where id=#{id}"})
+    int updateCommentCount(@Param("id")int id,@Param("commentCount")int commentCount);
 
 }

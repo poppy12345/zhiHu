@@ -43,4 +43,8 @@ public class QuestionService {
         return questionDao.selectQuestionById(questionId);
     }
 
+    public int updateCommentCount(int questionId,int commentCount){
+        return questionDao.updateCommentCount(questionId,commentCount);
+    }
+
 }
