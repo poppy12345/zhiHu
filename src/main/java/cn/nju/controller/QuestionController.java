@@ -1,12 +1,12 @@
 package cn.nju.controller;
 
-import cn.nju.dao.QuestionDao;
+
 import cn.nju.model.*;
 import cn.nju.service.CommentService;
+import cn.nju.service.LikeService;
 import cn.nju.service.QuestionService;
 import cn.nju.service.UserService;
 import cn.nju.util.DevelopmentUtil;
-import org.apache.ibatis.javassist.compiler.MemberResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +33,9 @@ public class QuestionController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    LikeService likeService;
 
     @Autowired
     HostHolder hostHolder;
@@ -73,6 +76,13 @@ public class QuestionController {
             ViewObject vo=new ViewObject();
             vo.set("comment",comment);
             vo.set("user",userService.getUser(comment.getUserId()));
+            if(hostHolder.getUser()==null){
+                vo.set("likeStatus",0);
+            }else {
+                User user=hostHolder.getUser();
+                vo.set("likeStatus",likeService.getLikeStatus(user.getId(),EntityType.Entity_Comment,comment.getId()));
+            }
+            vo.set("likeCount",likeService.getLikeCount(EntityType.Entity_Comment,comment.getId()));
             comments.add(vo);
         }
         model.addAttribute("comments",comments);
