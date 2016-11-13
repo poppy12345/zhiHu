@@ -42,4 +42,8 @@ public class CommentService {
         return commentDao.updateStatus(1,commentId)>0;
     }
 
+    public Comment getCommentById(int commentId){
+        return commentDao.selectCommentById(commentId);
+    }
+
 }

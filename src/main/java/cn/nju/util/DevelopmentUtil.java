@@ -12,6 +12,8 @@ import java.security.MessageDigest;
 public class DevelopmentUtil {
     private static final Logger logger = LoggerFactory.getLogger(DevelopmentUtil.class);
 
+    public static final int SYSTEM_USER=1;
+
     public static String getJsonString(int code){
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("code",code);
