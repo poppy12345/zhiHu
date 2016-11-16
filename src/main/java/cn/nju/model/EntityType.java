@@ -6,4 +6,5 @@ package cn.nju.model;
 public class EntityType {
     public static int Entity_Question=1;
     public static int Entity_Comment=2;
+    public static int Entity_User=3;
 }

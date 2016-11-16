@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.security.MessageDigest;
+import java.util.Map;
 
 /**
  * Created by 黄锐鸿 on 2016/9/18.
@@ -27,6 +28,18 @@ public class DevelopmentUtil {
 
         return jsonObject.toJSONString();
     }
+
+    public static String getJsonString(int code,Map<String,Object> msg){//对map类型的数据进行json化
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("code",code);
+        for(Map.Entry<String,Object> entry:msg.entrySet()){
+            jsonObject.put(entry.getKey(),entry.getValue());
+        }
+
+        return jsonObject.toJSONString();
+    }
+
+
     public static String MD5(String key){
         char hexDigits[] = {
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
